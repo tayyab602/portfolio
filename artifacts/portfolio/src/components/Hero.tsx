@@ -13,7 +13,7 @@ export function Hero() {
         initial={{ opacity: 0, x: 60 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.1, delay: 0.3, ease: APPLE_EASE }}
-        className="absolute right-0 bottom-0 top-0 w-[55%] flex items-end justify-end pointer-events-none select-none"
+        className="absolute right-[-4%] bottom-0 top-0 w-[52%] flex items-end justify-center pointer-events-none select-none"
       >
         {/* Ambient glow under feet */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 h-48 bg-primary/20 rounded-full blur-3xl" />

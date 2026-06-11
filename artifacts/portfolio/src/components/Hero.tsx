@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import profilePhoto from "@assets/IMG-20260601-WA0094_1781116618895.jpg";
+import profilePhoto from "@assets/tayyab_nobg.png";
 import { APPLE_EASE, staggerContainer, staggerItem } from "@/lib/animations";
 
 export function Hero() {
@@ -8,12 +8,12 @@ export function Hero() {
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[40vw] h-[40vw] bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[30vw] h-[30vw] bg-accent/20 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="container px-4 mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="container px-4 mx-auto grid lg:grid-cols-2 gap-4 items-end relative z-10">
         <motion.div
           variants={staggerContainer(0.14, 0.1)}
           initial="hidden"
           animate="visible"
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-6 pb-16 lg:pb-0 lg:self-center"
         >
           <motion.div
             variants={staggerItem}
@@ -65,23 +65,27 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.88, y: 40 }}
+          initial={{ opacity: 0, scale: 0.9, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 0.35, ease: APPLE_EASE }}
-          className="relative mx-auto lg:ml-auto max-w-md w-full aspect-[3/4]"
+          transition={{ duration: 1.1, delay: 0.3, ease: APPLE_EASE }}
+          className="relative mx-auto lg:ml-auto flex items-end justify-center"
+          style={{ height: "min(85vh, 700px)" }}
         >
-          <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-accent/30 rounded-2xl rotate-3 scale-105 opacity-50 blur-xl" />
-          <div className="relative h-full w-full rounded-2xl overflow-hidden border border-white/10 bg-card shadow-2xl">
-            <img
-              src={profilePhoto}
-              alt="Tayyab Naveed Akhtar"
-              className="w-full h-full object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <div className="font-mono text-sm tracking-wider text-white/80 border-l-2 border-primary pl-3">
-                BASED IN KAMRA, PK
-              </div>
+          {/* Ambient glow under the figure */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 h-32 bg-primary/25 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/5 h-20 bg-accent/15 rounded-full blur-2xl pointer-events-none" />
+
+          <img
+            src={profilePhoto}
+            alt="Tayyab Naveed Akhtar"
+            className="relative z-10 h-full w-auto object-contain object-bottom select-none drop-shadow-2xl"
+            style={{ filter: "drop-shadow(0 0 40px rgba(0,255,255,0.12))" }}
+            draggable={false}
+          />
+
+          <div className="absolute bottom-6 left-0 z-20">
+            <div className="font-mono text-sm tracking-wider text-white/60 border-l-2 border-primary pl-3">
+              BASED IN KAMRA, PK
             </div>
           </div>
         </motion.div>

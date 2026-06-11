@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Skills</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#07090f; overflow:hidden; }
+  canvas { display:block; }
+  #hint {
+    position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%);
+    font:500 .72rem/1 'Inter',sans-serif; letter-spacing:.14em;
+    text-transform:uppercase; color:rgba(255,255,255,.22); pointer-events:none;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hint">hover to repel · move away to attract</div>
+
+<script>
+// ── Canvas 2-D physics — no Three.js so we have full control ──────────────
+
+const canvas = document.getElementById('c');
+const ctx    = canvas.getContext('2d');
+
+let W, H, CX, CY;
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  CX = W / 2;
+  CY = H / 2;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// ── skill data: use CDN SVG logos ─────────────────────────────────────────
+const SKILLS = [
+  { name:'JavaScript', slug:'javascript',  color:'#f7df1e', bg:'#323330' },
+  { name:'TypeScript', slug:'typescript',  color:'#3178c6', bg:'#fff'    },
+  { name:'HTML5',      slug:'html5',       color:'#e34f26', bg:'#fff'    },
+  { name:'CSS3',       slug:'css3',        color:'#1572b6', bg:'#fff'    },
+  { name:'React',      slug:'react',       color:'#61dafb', bg:'#20232a' },
+  { name:'Node.js',    slug:'nodedotjs',   color:'#417e38', bg:'#fff'    },
+  { name:'Python',     slug:'python',      color:'#3776ab', bg:'#fff'    },
+  { name:'Vue.js',     slug:'vuedotjs',    color:'#42b883', bg:'#fff'    },
+  { name:'Git',        slug:'git',         color:'#f05032', bg:'#fff'    },
+  { name:'Docker',     slug:'docker',      color:'#2496ed', bg:'#fff'    },
+  { name:'Figma',      slug:'figma',       color:'#f24e1e', bg:'#fff'    },
+  { name:'MongoDB',    slug:'mongodb',     color:'#47a248', bg:'#fff'    },
+];
+
+// ── pre-load all logos as Image objects ───────────────────────────────────
+const logoImgs = {};
+let   loadedCount = 0;
+
+function startWhenReady() {
+  loadedCount++;
+  if (loadedCount >= SKILLS.length) initOrbs();
+}
+
+SKILLS.forEach(sk => {
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  // simpleicons CDN: coloured SVG
+  img.src = `https://cdn.simpleicons.org/${sk.slug}/${sk.color.replace('#','')}`;
+  img.onload  = () => { logoImgs[sk.slug] = img; startWhenReady(); };
+  img.onerror = () => { logoImgs[sk.slug] = null; startWhenReady(); };
+});
+
+// ── orb objects ───────────────────────────────────────────────────────────
+let orbs = [];
+
+function initOrbs() {
+  orbs = SKILLS.map((sk, i) => {
+    // start spread out in a circle
+    const angle = (i / SKILLS.length) * Math.PI * 2;
+    const r     = Math.min(W, H) * 0.35;
+    return {
+      sk,
+      x:  CX + Math.cos(angle) * r,
+      y:  CY + Math.sin(angle) * r,
+      vx: 0,
+      vy: 0,
+      radius: 34 + Math.random() * 10,
+    };
+  });
+  requestAnimationFrame(loop);
+}
+
+// ── mouse tracking ────────────────────────────────────────────────────────
+let mx = -9999, my = -9999, mActive = false;
+
+canvas.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY; mActive = true;
+});
+canvas.addEventListener('mouseleave', () => { mActive = false; });
+canvas.addEventListener('touchmove', e => {
+  e.preventDefault();
+  mx = e.touches[0].clientX; my = e.touches[0].clientY; mActive = true;
+}, { passive: false });
+canvas.addEventListener('touchend', () => { mActive = false; });
+
+// ── physics ───────────────────────────────────────────────────────────────
+const ATTRACT  = 0.045;   // pull toward centre
+const DAMPING  = 0.80;
+const REPEL_R  = 140;     // px radius of cursor repulsion
+const REPEL_F  = 700;     // repulsion strength
+const SEP_K    = 0.6;     // sphere–sphere separation
+
+function tick() {
+  orbs.forEach((o, i) => {
+
+    // 1. spring toward centre
+    const dx = CX - o.x, dy = CY - o.y;
+    o.vx += dx * ATTRACT;
+    o.vy += dy * ATTRACT;
+
+    // 2. cursor repulsion
+    if (mActive) {
+      const cdx = o.x - mx, cdy = o.y - my;
+      const dist = Math.sqrt(cdx*cdx + cdy*cdy);
+      if (dist < REPEL_R && dist > 0.5) {
+        const force = REPEL_F * Math.pow(1 - dist / REPEL_R, 2) / dist;
+        o.vx += cdx * force;
+        o.vy += cdy * force;
+      }
+    }
+
+    // 3. sphere–sphere separation
+    orbs.forEach((b, j) => {
+      if (j === i) return;
+      const sdx = o.x - b.x, sdy = o.y - b.y;
+      const dist = Math.sqrt(sdx*sdx + sdy*sdy);
+      const minD = o.radius + b.radius;
+      if (dist < minD && dist > 0.5) {
+        const push = (minD - dist) * SEP_K / dist;
+        o.vx += sdx * push;
+        o.vy += sdy * push;
+      }
+    });
+
+    // 4. damp + integrate
+    o.vx *= DAMPING;
+    o.vy *= DAMPING;
+    o.x  += o.vx;
+    o.y  += o.vy;
+  });
+}
+
+// ── draw a single orb ─────────────────────────────────────────────────────
+function drawOrb(o) {
+  const { x, y, radius: r, sk } = o;
+  const img = logoImgs[sk.slug];
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.clip(); // everything drawn below is clipped to circle
+
+  // background fill
+  ctx.fillStyle = sk.bg;
+  ctx.fill();
+
+  // radial sheen (makes it look spherical)
+  const shine = ctx.createRadialGradient(x - r*.28, y - r*.28, 0, x, y, r);
+  shine.addColorStop(0,   'rgba(255,255,255,0.45)');
+  shine.addColorStop(0.5, 'rgba(255,255,255,0.05)');
+  shine.addColorStop(1,   'rgba(0,0,0,0.35)');
+  ctx.fillStyle = shine;
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fill();
+
+  // logo image centered inside sphere
+  if (img) {
+    const pad  = r * 0.28;
+    const size = (r - pad) * 2;
+    ctx.globalAlpha = 0.92;
+    ctx.drawImage(img, x - size/2, y - size/2, size, size);
+    ctx.globalAlpha = 1;
+  } else {
+    // fallback: first letter
+    ctx.fillStyle = sk.color;
+    ctx.font      = `bold ${r * 0.9}px Inter,sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(sk.name[0], x, y);
+  }
+
+  ctx.restore();
+
+  // outer ring glow (drawn outside clip)
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.strokeStyle = sk.color + '66';
+  ctx.lineWidth   = 2;
+  ctx.stroke();
+  ctx.restore();
+}
+
+// ── central glow dot ─────────────────────────────────────────────────────
+let glowT = 0;
+function drawCenter() {
+  glowT += 0.04;
+  const pulse = 6 + Math.sin(glowT) * 3;
+  const g = ctx.createRadialGradient(CX, CY, 0, CX, CY, pulse * 6);
+  g.addColorStop(0,   'rgba(91,156,246,0.9)');
+  g.addColorStop(0.3, 'rgba(91,156,246,0.3)');
+  g.addColorStop(1,   'rgba(91,156,246,0)');
+  ctx.beginPath();
+  ctx.arc(CX, CY, pulse * 6, 0, Math.PI * 2);
+  ctx.fillStyle = g;
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(CX, CY, pulse * 0.5, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(180,210,255,0.95)';
+  ctx.fill();
+}
+
+// ── main loop ─────────────────────────────────────────────────────────────
+function loop() {
+  ctx.clearRect(0, 0, W, H);
+  drawCenter();
+  tick();
+  orbs.forEach(drawOrb);
+  requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>

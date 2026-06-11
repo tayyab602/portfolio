@@ -19,10 +19,10 @@ const contactLinks = [
     isExternal: true,
   },
   {
-    href: "mailto:contact@example.com",
+    href: "mailto:tayyabnaveed13@gmail.com",
     icon: Mail,
     label: "Email",
-    sub: "Say hello",
+    sub: "tayyabnaveed13@gmail.com",
     hoverColor: "group-hover:text-primary",
     isExternal: false,
   },
@@ -66,7 +66,7 @@ export function Contact() {
             >
               <Icon className={`w-8 h-8 mb-4 text-white/50 transition-colors ${hoverColor}`} />
               <span className="font-medium">{label}</span>
-              <span className="text-xs text-muted-foreground mt-2 font-mono">{sub}</span>
+              <span className="text-xs text-muted-foreground mt-2 font-mono break-all">{sub}</span>
             </motion.a>
           ))}
 
@@ -76,7 +76,7 @@ export function Contact() {
           >
             <MapPin className="w-8 h-8 mb-4 text-white/50 group-hover:text-accent transition-colors" />
             <span className="font-medium">Location</span>
-            <span className="text-xs text-muted-foreground mt-2 font-mono">Kamra, Pakistan</span>
+            <span className="text-xs text-muted-foreground mt-2 font-mono">SKP → Kamra, Pakistan</span>
           </motion.div>
         </motion.div>
 

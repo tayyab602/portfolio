@@ -11,10 +11,23 @@ import {
 } from "@/lib/animations";
 
 const skills = [
-  { category: "Languages",    items: ["JavaScript", "TypeScript", "Python", "C++", "HTML/CSS"] },
-  { category: "Frontend",     items: ["React", "Next.js", "Tailwind CSS", "Framer Motion", "Vite"] },
-  { category: "Backend & DB", items: ["Node.js", "Express", "PostgreSQL", "MongoDB", "REST APIs"] },
-  { category: "Tools & Other",items: ["Git", "Docker", "Linux", "E-commerce Ops", "Customer Management"] },
+  {
+    category: "Languages",
+    items: ["C++", "C#", "Java", "Dart", "JavaScript"],
+  },
+  {
+    category: "Frontend",
+    items: ["Flutter", "Java (Android)", "React", "Next.js", "Tailwind CSS", "Framer Motion", "Vite"],
+    learning: ["React", "Next.js", "Tailwind CSS", "Framer Motion", "Vite"],
+  },
+  {
+    category: "Backend & DB",
+    items: ["Node.js", "Express", "MongoDB", "REST APIs", "Firebase", "MySQL", "XAMPP / phpMyAdmin"],
+  },
+  {
+    category: "Tools & IDEs",
+    items: ["Git", "VS Code", "Android Studio", "Eclipse", "Visual Studio", "Postman", "phpMyAdmin"],
+  },
 ];
 
 export function Skills() {
@@ -55,12 +68,26 @@ export function Skills() {
                 viewport={VIEWPORT_EARLY}
                 className="space-y-3"
               >
-                {skillGroup.items.map((item) => (
-                  <motion.li key={item} variants={staggerItemLeft} className="flex items-center gap-3 font-medium text-lg">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
-                    {item}
-                  </motion.li>
-                ))}
+                {skillGroup.items.map((item) => {
+                  const isLearning = skillGroup.learning?.includes(item);
+                  return (
+                    <motion.li
+                      key={item}
+                      variants={staggerItemLeft}
+                      className="flex items-center gap-3 font-medium text-lg"
+                    >
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isLearning ? "bg-accent/50" : "bg-primary"}`}
+                      />
+                      <span className={isLearning ? "text-white/40" : ""}>
+                        {item}
+                        {isLearning && (
+                          <span className="ml-2 text-xs font-mono text-accent/50 tracking-wide">learning</span>
+                        )}
+                      </span>
+                    </motion.li>
+                  );
+                })}
               </motion.ul>
             </motion.div>
           ))}
@@ -74,7 +101,7 @@ export function Skills() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="text-center font-mono text-sm text-white/30 tracking-widest mb-6">
-            TECHNOLOGY STACK
+            TECHNOLOGY STACK · HOVER TO INTERACT
           </p>
           <TechOrbs />
         </motion.div>

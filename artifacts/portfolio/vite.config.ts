@@ -14,7 +14,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     runtimeErrorOverlay(),
-    
+
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
@@ -33,12 +33,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
-      "@assets": path.resolve(
-        import.meta.dirname,
-        "..",
-        "..",
-        "attached_assets",
-      ),
+      "@assets": path.resolve(import.meta.dirname, "..", "..", "attached_assets"),
     },
     dedupe: ["react", "react-dom"],
   },
@@ -46,9 +41,6 @@ export default defineConfig({
   root: path.resolve(import.meta.dirname),
 
   build: {
-  outDir: "dist",
-  emptyOutDir: true,
-},
     outDir: "dist",
     emptyOutDir: true,
   },

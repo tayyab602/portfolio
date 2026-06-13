@@ -46,9 +46,15 @@ export default defineConfig({
   root: path.resolve(import.meta.dirname),
 
   build: {
+<<<<<<< Updated upstream
   outDir: "dist",
   emptyOutDir: true,
 },
+=======
+    outDir: "dist",
+    emptyOutDir: true,
+  },
+>>>>>>> Stashed changes
 
   server: {
     port,

@@ -1,0 +1,169 @@
+/* ================================================
+   TAYYAB PORTFOLIO — FONT PACK: OPTION 02
+   Cormorant Garamond (Salam) + Unbounded (Name)
+   ================================================ */
+
+/* 1. IMPORT — paste this in your <head> or at top of CSS */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,700&family=Unbounded:wght@900&family=Inter:wght@400;500&display=swap');
+
+/* ------------------------------------------------
+   2. ROOT TOKENS — your palette variables
+   ------------------------------------------------ */
+:root {
+  --color-orange:     #E07230;
+  --color-dark-bg:    #1a1209;
+  --color-dark-card:  #221808;
+  --color-cream:      #fdf6f0;
+  --color-muted:      #888888;
+  --font-display-italic: 'Cormorant Garamond', Georgia, serif;
+  --font-display-block:  'Unbounded', sans-serif;
+  --font-body:           'Inter', system-ui, sans-serif;
+}
+
+/* ------------------------------------------------
+   3. HERO SECTION
+   ------------------------------------------------ */
+body {
+  background-color: var(--color-dark-bg);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+}
+
+/* "Salam," — italic luxury serif */
+.hero-greeting {
+  font-family: var(--font-display-italic);
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(56px, 8vw, 88px);
+  color: var(--color-orange);
+  line-height: 1;
+  margin-bottom: -8px;       /* pulls name closer — intentional overlap feel */
+  letter-spacing: -0.5px;
+}
+
+/* "I'M TAYYAB!" — chunky geometric block */
+.hero-name {
+  font-family: var(--font-display-block);
+  font-weight: 900;
+  font-size: clamp(40px, 6.5vw, 64px);
+  color: var(--color-cream);
+  line-height: 1;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+/* Subtitle */
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-muted);
+  margin-bottom: 28px;
+}
+
+.hero-subtitle strong {
+  color: var(--color-cream);
+  font-weight: 500;
+}
+
+/* ------------------------------------------------
+   4. BUTTONS
+   ------------------------------------------------ */
+.btn-primary {
+  background: var(--color-orange);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 26px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-primary:hover { opacity: 0.88; }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 12px 26px;
+  border: 1.5px solid rgba(253, 246, 240, 0.25);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.btn-secondary:hover { border-color: rgba(253, 246, 240, 0.6); }
+
+/* ------------------------------------------------
+   5. LOCATION TAG
+   ------------------------------------------------ */
+.hero-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.hero-location::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 16px;
+  background: var(--color-orange);
+  border-radius: 2px;
+}
+
+/* ------------------------------------------------
+   6. NAV LOGO — keep the Cormorant italic for brand
+   ------------------------------------------------ */
+.nav-logo {
+  font-family: var(--font-display-italic);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--color-cream);
+}
+
+/* ------------------------------------------------
+   7. SECTION HEADINGS (Skills, Projects, etc.)
+      Use Unbounded for consistency
+   ------------------------------------------------ */
+.section-heading {
+  font-family: var(--font-display-block);
+  font-weight: 900;
+  font-size: clamp(28px, 4vw, 42px);
+  color: var(--color-cream);
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}
+
+.section-heading span {
+  color: var(--color-orange);   /* accent word in orange */
+}
+
+/* ================================================
+   USAGE EXAMPLE (HTML):
+
+   <h1>
+     <span class="hero-greeting">Salam,</span>
+     <span class="hero-name">I'm Tayyab!</span>
+   </h1>
+   <p class="hero-subtitle">
+     Computer Science student at
+     <strong>Air University, Kamra</strong>
+   </p>
+   <div style="display:flex;gap:12px;">
+     <button class="btn-primary">Contact Me</button>
+     <button class="btn-secondary">See My Work</button>
+   </div>
+   <div class="hero-location">SKP → KAMRA, PK</div>
+
+   ================================================ */

@@ -13,16 +13,15 @@ import {
 const skills = [
   {
     category: "Languages",
-    items: ["C++", "C#", "Java", "Dart", "JavaScript"],
+    items: ["C++", "C#", "Java", "Dart", "JavaScript", "Assembly (iAPX8088)", "SQL", "HTML"],
   },
   {
-    category: "Frontend",
-    items: ["Flutter", "Java (Android)", "React", "Next.js", "Tailwind CSS", "Framer Motion", "Vite"],
-    learning: ["React", "Next.js", "Tailwind CSS", "Framer Motion", "Vite"],
+    category: "Frontend / Mobile",
+    items: ["Flutter", "Java (Android)", "Windows Forms (.NET)"],
   },
   {
-    category: "Backend & DB",
-    items: ["Node.js", "Express", "MongoDB", "REST APIs", "Firebase", "MySQL", "XAMPP / phpMyAdmin"],
+    category: "Backend & Databases",
+    items: ["Node.js", "Express", "MongoDB", "Firebase", "MySQL", "REST APIs", "phpMyAdmin", "XAMPP"],
   },
   {
     category: "Tools & IDEs",
@@ -32,7 +31,7 @@ const skills = [
 
 export function Skills() {
   return (
-    <section id="skills" className="py-24 relative bg-card/50">
+    <section id="skills" className="py-24 relative bg-muted/30">
       <div className="container px-4 mx-auto">
         {/* Heading */}
         <motion.div
@@ -40,12 +39,12 @@ export function Skills() {
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
-          className="mb-16 md:mb-20 text-right"
+          className="mb-16 md:mb-20"
         >
           <motion.h2 variants={fadeUp} className="text-3xl md:text-5xl font-black mb-4">
-            SKILLS <span className="text-accent">/</span>
+            <span className="text-primary">/</span> SKILLS
           </motion.h2>
-          <motion.div variants={lineReveal} className="w-24 h-1 bg-gradient-to-l from-accent to-transparent ml-auto" />
+          <motion.div variants={lineReveal} className="w-16 h-0.5 bg-primary" />
         </motion.div>
 
         {/* Skill columns */}
@@ -57,8 +56,8 @@ export function Skills() {
           className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
         >
           {skills.map((skillGroup, idx) => (
-            <motion.div key={skillGroup.category} variants={staggerItem} className="space-y-6">
-              <h3 className="text-xl font-mono text-white/50 border-b border-white/10 pb-4">
+            <motion.div key={skillGroup.category} variants={staggerItem} className="space-y-5">
+              <h3 className="text-sm font-mono font-semibold text-muted-foreground border-b border-border pb-3 uppercase tracking-wider">
                 {String(idx + 1).padStart(2, "0")}. {skillGroup.category}
               </h3>
               <motion.ul
@@ -66,42 +65,32 @@ export function Skills() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={VIEWPORT_EARLY}
-                className="space-y-3"
+                className="space-y-2.5"
               >
-                {skillGroup.items.map((item) => {
-                  const isLearning = skillGroup.learning?.includes(item);
-                  return (
-                    <motion.li
-                      key={item}
-                      variants={staggerItemLeft}
-                      className="flex items-center gap-3 font-medium text-lg"
-                    >
-                      <span
-                        className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isLearning ? "bg-accent/50" : "bg-primary"}`}
-                      />
-                      <span className={isLearning ? "text-white/40" : ""}>
-                        {item}
-                        {isLearning && (
-                          <span className="ml-2 text-xs font-mono text-accent/50 tracking-wide">learning</span>
-                        )}
-                      </span>
-                    </motion.li>
-                  );
-                })}
+                {skillGroup.items.map((item) => (
+                  <motion.li
+                    key={item}
+                    variants={staggerItemLeft}
+                    className="flex items-center gap-2.5 text-sm font-medium"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                    {item}
+                  </motion.li>
+                ))}
               </motion.ul>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Tech Orbs */}
+        {/* 2D Tech badges */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-center font-mono text-sm text-white/30 tracking-widest mb-6">
-            TECHNOLOGY STACK · HOVER TO INTERACT
+          <p className="text-xs font-mono text-muted-foreground tracking-widest uppercase mb-6 text-center">
+            Technology Stack
           </p>
           <TechOrbs />
         </motion.div>

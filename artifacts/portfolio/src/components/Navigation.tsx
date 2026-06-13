@@ -1,55 +1,71 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Sun, Moon, Monitor } from "lucide-react";
+import { useTheme } from "@/hooks/useTheme";
+
+const THEME_ICONS = { light: Sun, dark: Moon, system: Monitor };
+const THEME_LABELS = { light: "Light", dark: "Dark", system: "System" };
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
+  const { theme, cycle } = useTheme();
+  const Icon = THEME_ICONS[theme];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 overflow-visible transition-all duration-300 ${
-        scrolled
-          ? 'bg-background/80 backdrop-blur-md border-b border-white/10'
-          : 'bg-transparent'
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-background/90 backdrop-blur-sm border-b border-border" : "bg-transparent"
       }`}
     >
-      {/* Nav content sits in the upper portion; extra height lets signature drip below */}
-      <div className="container mx-auto px-4 flex items-start justify-between pt-4 pb-0">
+      <div className="container mx-auto px-6 flex items-center justify-between h-16">
 
-        {/* Signature logo — drips below the nav border */}
+        {/* Logo */}
         <a
           href="#hero"
-          className="relative block leading-none select-none"
-          style={{ marginBottom: '-18px' }}
+          className="text-4xl text-primary select-none leading-none"
+          style={{ fontFamily: "'Great Vibes', cursive" }}
         >
-          <span
-            className="block text-5xl text-primary drop-shadow-[0_0_12px_rgba(0,255,255,0.5)]"
-            style={{ fontFamily: "'Great Vibes', cursive", lineHeight: 1.15 }}
-          >
-            Tayyab
-          </span>
-          {/* Underline pen-stroke decoration */}
-          <span
-            className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-primary/80 via-primary/40 to-transparent"
-            style={{ bottom: '6px' }}
-          />
+          Tayyab
         </a>
 
-        {/* Nav links — vertically centred to the upper bar */}
-        <div className="flex items-center gap-8 font-mono text-sm tracking-wider pt-2 hidden md:flex">
-          <a href="#about"      className="text-muted-foreground hover:text-white transition-colors">ABOUT</a>
-          <a href="#experience" className="text-muted-foreground hover:text-white transition-colors">PATH</a>
-          <a href="#skills"     className="text-muted-foreground hover:text-white transition-colors">SKILLS</a>
-          <a href="#projects"   className="text-muted-foreground hover:text-white transition-colors">PROJECTS</a>
-          <a href="#contact"    className="text-primary font-bold hover:text-primary/80 transition-colors">CONTACT</a>
+        {/* Nav links + theme toggle */}
+        <div className="flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide">
+            {[
+              ["#about",      "About"],
+              ["#experience", "Path"],
+              ["#skills",     "Skills"],
+              ["#projects",   "Projects"],
+              ["#contact",    "Contact"],
+            ].map(([href, label]) => (
+              <a
+                key={href}
+                href={href}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+
+          {/* Theme toggle */}
+          <button
+            onClick={cycle}
+            title={`Theme: ${THEME_LABELS[theme]} — click to cycle`}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-card hover:bg-muted transition-colors text-sm text-muted-foreground hover:text-foreground"
+          >
+            <Icon className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline font-mono text-xs">{THEME_LABELS[theme]}</span>
+          </button>
         </div>
       </div>
     </motion.nav>

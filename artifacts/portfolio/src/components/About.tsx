@@ -13,20 +13,20 @@ const aboutCards = [
   {
     icon: GraduationCap,
     title: "Computer Science",
-    desc: "Undergraduate student at Air University Aerospace and Aviation Campus, Kamra. Deep diving into algorithms, system architecture, and modern software development.",
+    desc: "Undergraduate at Air University Aerospace and Aviation Campus, Kamra. Building strong foundations in algorithms, data structures, and software engineering.",
     color: "text-primary",
   },
   {
     icon: Code2,
-    title: "Full-Stack Dev",
-    desc: "Passionate about building performant, scalable applications. I write clean code that solves real problems, focusing on robust architectures and polished user experiences.",
-    color: "text-accent",
+    title: "Developer",
+    desc: "Hands-on experience across mobile (Flutter), desktop (Java, C#), backend (Node.js), and databases (MySQL, MongoDB, Firebase). I build things that work.",
+    color: "text-primary",
   },
   {
     icon: Store,
     title: "Entrepreneur",
-    desc: "Running a successful WhatsApp-based beauty store. Managing inventory, customer relations, and digital marketing. I understand business needs as well as technical constraints.",
-    color: "text-pink-500",
+    desc: "Running a WhatsApp-based beauty store — managing inventory, customer relations, and digital marketing. I understand both the technical and business sides.",
+    color: "text-primary",
   },
 ];
 
@@ -39,12 +39,12 @@ export function About() {
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
-          className="mb-16 md:mb-24"
+          className="mb-16 md:mb-20"
         >
           <motion.h2 variants={fadeUp} className="text-3xl md:text-5xl font-black mb-4">
             <span className="text-primary">/</span> ABOUT ME
           </motion.h2>
-          <motion.div variants={lineReveal} className="w-24 h-1 bg-gradient-to-r from-primary to-transparent" />
+          <motion.div variants={lineReveal} className="w-16 h-0.5 bg-primary" />
         </motion.div>
 
         <div className="grid lg:grid-cols-12 gap-12 items-start">
@@ -53,12 +53,12 @@ export function About() {
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT}
-            className="lg:col-span-5 space-y-6 text-lg text-muted-foreground leading-relaxed"
+            className="lg:col-span-5 space-y-5 text-base text-muted-foreground leading-relaxed"
           >
             {[
-              <>I don't just write code; I build solutions. As a developer who also runs a business, I bring a unique perspective to software engineering. I understand that technology is a tool to create value.</>,
-              <>My journey started with a curiosity about how things work under the hood. Today, I'm pursuing my CS degree at <span className="text-foreground font-semibold">Air University AAC</span> while balancing my entrepreneurial ventures.</>,
-              <>Whether it's optimizing a database query, designing a modern frontend, or fulfilling orders for my store, I operate with the same conviction: do it well, or don't do it at all.</>,
+              <>I'm a CS student at <span className="text-foreground font-semibold">Air University AAC, Kamra</span>. I started learning to code in Fall 2024 and have been building real projects since.</>,
+              <>My stack grew semester by semester — from C++ and Java to Flutter, databases, and now backend development with Node.js. I learn by building.</>,
+              <>Alongside my studies, I run a WhatsApp-based beauty store back home in SKP. It taught me that software is only useful when it solves real problems.</>,
             ].map((para, i) => (
               <motion.p key={i} variants={slideLeft}>
                 {para}
@@ -71,18 +71,18 @@ export function About() {
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT}
-            className="lg:col-span-7 grid sm:grid-cols-2 gap-6"
+            className="lg:col-span-7 grid sm:grid-cols-2 gap-4"
           >
             {aboutCards.map((card, idx) => (
               <motion.div
                 key={card.title}
                 variants={staggerItem}
-                className={`p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 hover:bg-white/10 transition-colors ${
+                className={`p-6 rounded-xl bg-card border border-border hover:border-primary/40 hover:shadow-md transition-all ${
                   idx === 2 ? "sm:col-span-2" : ""
                 }`}
               >
-                <card.icon className={`w-8 h-8 mb-4 ${card.color}`} />
-                <h3 className="text-xl font-bold text-foreground mb-2">{card.title}</h3>
+                <card.icon className={`w-6 h-6 mb-3 ${card.color}`} />
+                <h3 className="text-lg font-bold mb-2">{card.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{card.desc}</p>
               </motion.div>
             ))}

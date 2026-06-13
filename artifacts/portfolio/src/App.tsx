@@ -19,8 +19,15 @@ function Router() {
 
 function App() {
   useEffect(() => {
-    // Force dark mode
-    document.documentElement.classList.add('dark');
+    // Apply saved theme or system default on first load
+    const saved = localStorage.getItem("portfolio-theme") as "light" | "dark" | "system" | null;
+    const theme = saved || "system";
+    if (theme === "system") {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.toggle("dark", prefersDark);
+    } else {
+      document.documentElement.classList.toggle("dark", theme === "dark");
+    }
   }, []);
 
   return (

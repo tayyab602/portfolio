@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
-import { Linkedin, Mail, MapPin } from "lucide-react";
+import { Linkedin, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import {
   APPLE_EASE,
   VIEWPORT,
   staggerContainer,
   staggerItem,
   fadeUp,
-  scaleUp,
 } from "@/lib/animations";
 
 const contactLinks = [
@@ -15,7 +14,8 @@ const contactLinks = [
     icon: Linkedin,
     label: "LinkedIn",
     sub: "/tayyab-naveed-akhtar",
-    hoverColor: "group-hover:text-[#0A66C2]",
+    iconColor: "text-[#0A66C2]",
+    borderHover: "hover:border-[#0A66C2]/50",
     isExternal: true,
   },
   {
@@ -23,69 +23,88 @@ const contactLinks = [
     icon: Mail,
     label: "Email",
     sub: "tayyabnaveed13@gmail.com",
-    hoverColor: "group-hover:text-primary",
+    iconColor: "text-primary",
+    borderHover: "hover:border-primary/50",
     isExternal: false,
+  },
+  {
+    href: "https://wa.me/c/923350602602",
+    icon: MessageCircle,
+    label: "WhatsApp",
+    sub: "+92 335 060 2602",
+    iconColor: "text-[#25D366]",
+    borderHover: "hover:border-[#25D366]/50",
+    isExternal: true,
   },
 ];
 
 export function Contact() {
   return (
-    <section id="contact" className="py-24 relative bg-card/30 border-t border-white/5">
+    <section id="contact" className="py-24 relative bg-muted/20 border-t border-border">
       <div className="container px-4 mx-auto max-w-4xl text-center">
+
+        {/* Heading */}
         <motion.div
           variants={staggerContainer(0.12)}
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
-          className="mb-12"
+          className="mb-14"
         >
-          <motion.h2 variants={fadeUp} className="text-4xl md:text-6xl font-black mb-6">
+          <motion.h2 variants={fadeUp} className="text-4xl md:text-6xl font-black mb-5">
             LET'S BUILD SOMETHING
           </motion.h2>
-          <motion.p variants={fadeUp} className="text-xl text-muted-foreground font-light max-w-2xl mx-auto">
-            Whether it's a software project, a business opportunity, or just a chat about tech — my inbox is open.
+          <motion.p variants={fadeUp} className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
+            Whether it's a software project, a business opportunity, or just a chat about tech — reach out any time.
           </motion.p>
         </motion.div>
 
+        {/* Contact cards */}
         <motion.div
-          variants={staggerContainer(0.15)}
+          variants={staggerContainer(0.12)}
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
-          className="grid sm:grid-cols-3 gap-6 mb-16"
+          className="grid sm:grid-cols-3 gap-4 mb-8"
         >
-          {contactLinks.map(({ href, icon: Icon, label, sub, hoverColor, isExternal }) => (
+          {contactLinks.map(({ href, icon: Icon, label, sub, iconColor, borderHover, isExternal }) => (
             <motion.a
               key={label}
               variants={staggerItem}
               href={href}
               target={isExternal ? "_blank" : undefined}
               rel={isExternal ? "noreferrer" : undefined}
-              whileHover={{ y: -5, transition: { duration: 0.25, ease: APPLE_EASE } }}
-              className="flex flex-col items-center p-8 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-primary/50 transition-all group"
+              whileHover={{ y: -4, transition: { duration: 0.25, ease: APPLE_EASE } }}
+              className={`flex flex-col items-center p-7 rounded-xl bg-card border border-border ${borderHover} hover:shadow-md transition-all group cursor-pointer`}
             >
-              <Icon className={`w-8 h-8 mb-4 text-white/50 transition-colors ${hoverColor}`} />
-              <span className="font-medium">{label}</span>
-              <span className="text-xs text-muted-foreground mt-2 font-mono break-all">{sub}</span>
+              {/* Icon in a visible container */}
+              <div className={`w-12 h-12 mb-4 rounded-xl border border-border bg-muted flex items-center justify-center group-hover:border-current transition-colors ${iconColor}`}>
+                <Icon className="w-5 h-5" />
+              </div>
+              <span className="font-semibold text-sm">{label}</span>
+              <span className="text-xs text-muted-foreground mt-1.5 font-mono break-all">{sub}</span>
             </motion.a>
           ))}
+        </motion.div>
 
-          <motion.div
-            variants={scaleUp}
-            className="flex flex-col items-center p-8 rounded-2xl bg-white/5 border border-white/10 group"
-          >
-            <MapPin className="w-8 h-8 mb-4 text-white/50 group-hover:text-accent transition-colors" />
-            <span className="font-medium">Location</span>
-            <span className="text-xs text-muted-foreground mt-2 font-mono">SKP → Kamra, Pakistan</span>
-          </motion.div>
+        {/* Location — blue accent */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEWPORT}
+          transition={{ duration: 0.55, ease: APPLE_EASE, delay: 0.3 }}
+          className="inline-flex items-center gap-3 px-6 py-3 rounded-xl border border-border bg-card"
+        >
+          <MapPin className="w-4 h-4 text-[#0A66C2]" />
+          <span className="text-sm font-medium text-[#0A66C2]">SKP → Kamra, Pakistan</span>
         </motion.div>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT}
-          transition={{ duration: 0.8, ease: APPLE_EASE }}
-          className="font-mono text-primary text-sm tracking-widest"
+          transition={{ duration: 0.6, ease: APPLE_EASE, delay: 0.4 }}
+          className="font-mono text-primary text-sm tracking-widest mt-14"
         >
           &gt; // READY FOR NEW CHALLENGES_
         </motion.p>

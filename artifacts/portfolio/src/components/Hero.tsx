@@ -8,20 +8,7 @@ export function Hero() {
       id="hero"
       className="relative min-h-[100dvh] flex items-stretch overflow-hidden"
     >
-      {/* Warm orange glow behind photo */}
-      {/* Bottom fade — photo melts into bg */}
-    <div
-      style={{
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: "180px",
-        background: "linear-gradient(to top, #1a1209 0%, transparent 100%)",
-        zIndex: 1,
-        pointerEvents: "none",
-      }}
-    />
+      
 
       {/* OPTION F: Giant ghost Arabic outline — full background layer */}
       <div

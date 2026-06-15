@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import profilePhoto from "@assets/9cd625bc-eec2-494a-9b82-e2f36c55d1a4-removebg-preview_1781191936109.png";
+import profilePhoto from "@assets/tayyab-hero.png";
 import { APPLE_EASE } from "@/lib/animations";
 
 export function Hero() {

@@ -8,7 +8,20 @@ export function Hero() {
       id="hero"
       className="relative min-h-[100dvh] flex items-stretch overflow-hidden"
     >
-      
+      {/* Warm orange glow behind photo */}
+      <div
+        style={{
+          position: "absolute",
+          right: 0,
+          top: 0,
+          width: "50%",
+          height: "100%",
+          background:
+            "radial-gradient(ellipse at 80% 60%, rgba(224,114,48,0.13) 0%, transparent 70%)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
 
       {/* OPTION F: Giant ghost Arabic outline — full background layer */}
       <div
@@ -167,7 +180,7 @@ export function Hero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: APPLE_EASE }}
           className="relative self-end hidden lg:flex items-end justify-center"
-          style={{ height: "min(92vh, 860px)" }}
+          style={{ height: "min(100vh, 960px)" }}
         >
           <div
             style={{

@@ -16,8 +16,6 @@ export function Hero() {
           top: 0,
           width: "50%",
           height: "100%",
-          background:
-            "radial-gradient(ellipse at 80% 60%, rgba(224,114,48,0.13) 0%, transparent 100%)",
           pointerEvents: "none",
           zIndex: 0,
         }}

@@ -30,7 +30,7 @@ export function Navigation() {
       <div className="container mx-auto px-6 flex items-center justify-between h-16">
 
         {/* Logo */}
-        
+        <a
           href="#hero"
           className="text-4xl text-primary select-none leading-none"
           style={{ fontFamily: "'Great Vibes', cursive" }}
@@ -48,7 +48,7 @@ export function Navigation() {
               ["#projects",   "Projects"],
               ["#contact",    "Contact"],
             ].map(([href, label]) => (
-              
+              <a
                 key={href}
                 href={href}
                 className="text-muted-foreground hover:text-foreground transition-colors"

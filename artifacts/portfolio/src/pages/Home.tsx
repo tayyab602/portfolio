@@ -5,6 +5,7 @@ import { Skills } from "@/components/Skills";
 import { Projects } from "@/components/Projects";
 import { Contact } from "@/components/Contact";
 import { Navigation } from "@/components/Navigation";
+import { RobotCompanion } from "@/robot/RobotCompanion";
 import { MessageCircle } from "lucide-react";
 
 export default function Home() {
@@ -19,13 +20,14 @@ export default function Home() {
         <Projects />
         <Contact />
       </main>
+      <RobotCompanion />
 
       <footer className="border-t border-border bg-card/30">
         <div className="container mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <p className="font-mono tracking-wide">
             TAYYAB NAVEED AKHTAR &copy; {new Date().getFullYear()}
           </p>
-          <a
+          
             href="https://wa.me/c/923350602602"
             target="_blank"
             rel="noreferrer"

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Sun, Moon, Monitor } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
+import { RobotToggleButton } from "@/robot/RobotToggleButton";
 
 const THEME_ICONS = { light: Sun, dark: Moon, system: Monitor };
 const THEME_LABELS = { light: "Light", dark: "Dark", system: "System" };
@@ -29,7 +30,7 @@ export function Navigation() {
       <div className="container mx-auto px-6 flex items-center justify-between h-16">
 
         {/* Logo */}
-        <a
+        
           href="#hero"
           className="text-4xl text-primary select-none leading-none"
           style={{ fontFamily: "'Great Vibes', cursive" }}
@@ -47,7 +48,7 @@ export function Navigation() {
               ["#projects",   "Projects"],
               ["#contact",    "Contact"],
             ].map(([href, label]) => (
-              <a
+              
                 key={href}
                 href={href}
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -56,6 +57,9 @@ export function Navigation() {
               </a>
             ))}
           </div>
+
+          {/* Play the 602 robot */}
+          <RobotToggleButton />
 
           {/* Theme toggle */}
           <button

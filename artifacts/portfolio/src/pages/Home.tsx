@@ -27,7 +27,7 @@ export default function Home() {
           <p className="font-mono tracking-wide">
             TAYYAB NAVEED AKHTAR &copy; {new Date().getFullYear()}
           </p>
-          
+          <a
             href="https://wa.me/c/923350602602"
             target="_blank"
             rel="noreferrer"

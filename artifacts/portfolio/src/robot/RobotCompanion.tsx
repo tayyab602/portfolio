@@ -99,6 +99,8 @@ export function RobotCompanion() {
     ).matches;
 
     const img = new Image();
+    img.onload = () => console.log("[602] robot image loaded ok", img.naturalWidth, img.naturalHeight);
+    img.onerror = (e) => console.error("[602] robot image FAILED to load:", robotSrc, e);
     img.src = robotSrc;
     robotImgRef.current = img;
 
@@ -220,7 +222,7 @@ export function RobotCompanion() {
       ctx.fillRect(x, y + 9, w, 4);
     }
 
-    function loop() {
+    function frame() {
       const w = ensureWorld();
       const vh = window.innerHeight;
       const vw = w.laneWidth;
@@ -229,7 +231,6 @@ export function RobotCompanion() {
         canvas.height = vh;
       }
       if (!ctx || !canvas) {
-        rafRef.current = requestAnimationFrame(loop);
         return;
       }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -252,7 +253,7 @@ export function RobotCompanion() {
           drawTile(tile.x, sy, tw, alpha);
         }
 
-        if (img && img.complete) {
+        if (img && img.complete && img.naturalWidth > 0) {
           const ry = vh * 0.45 + bob;
           const rx = (vw - robotW) / 2;
           ctx.drawImage(img, rx, ry, robotW, robotH);
@@ -299,7 +300,7 @@ export function RobotCompanion() {
           if (sy < -40 || sy > s.vh + 40) continue;
           drawTile(tile.x, sy, tw, 1);
         }
-        if (img && img.complete) {
+        if (img && img.complete && img.naturalWidth > 0) {
           ctx.drawImage(img, p.x, p.worldY - s.scrollY, s.robotW, s.robotH);
         }
 
@@ -333,11 +334,22 @@ export function RobotCompanion() {
           if (sy < -40 || sy > s.vh + 40) continue;
           drawTile(tile.x, sy, tw, 1);
         }
-        if (img && img.complete) {
+        if (img && img.complete && img.naturalWidth > 0) {
           ctx.drawImage(img, s.player.x, s.player.worldY - s.scrollY, s.robotW, s.robotH);
         }
       }
+    }
 
+    let frameErrorLogged = false;
+    function loop() {
+      try {
+        frame();
+      } catch (err) {
+        if (!frameErrorLogged) {
+          console.error("[602] frame error, continuing without crashing the loop:", err);
+          frameErrorLogged = true;
+        }
+      }
       rafRef.current = requestAnimationFrame(loop);
     }
     rafRef.current = requestAnimationFrame(loop);

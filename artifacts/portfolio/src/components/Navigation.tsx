@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Sun, Moon, Monitor } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
+import { RobotToggleButton } from "@/robot/RobotToggleButton";
 
 const THEME_ICONS = { light: Sun, dark: Moon, system: Monitor };
 const THEME_LABELS = { light: "Light", dark: "Dark", system: "System" };
@@ -56,6 +57,9 @@ export function Navigation() {
               </a>
             ))}
           </div>
+
+          {/* Play the 602 robot */}
+          <RobotToggleButton />
 
           {/* Theme toggle */}
           <button

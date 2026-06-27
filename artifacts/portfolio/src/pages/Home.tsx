@@ -12,6 +12,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navigation />
+      <RobotCompanion />
       <main>
         <Hero />
         <About />
@@ -20,7 +21,6 @@ export default function Home() {
         <Projects />
         <Contact />
       </main>
-      <RobotCompanion />
 
       <footer className="border-t border-border bg-card/30">
         <div className="container mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">

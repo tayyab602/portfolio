@@ -19,7 +19,7 @@ const aboutCards = [
   {
     icon: Code2,
     title: "Developer",
-    desc: "Hands-on experience across mobile (Flutter), desktop (Java, C#), backend (Node.js), and databases (MySQL, MongoDB, Firebase). I build things that work.",
+    desc: "Building websites with HTML, CSS, and JavaScript while deepening my Node.js skills through full-stack web development. Also experienced with Flutter, Java, C#, and databases.",
     color: "text-primary",
   },
   {
@@ -57,7 +57,8 @@ export function About() {
           >
             {[
               <>I'm a CS student at <span className="text-foreground font-semibold">Air University AAC, Kamra</span>. I started learning to code in Fall 2024 and have been building real projects since.</>,
-              <>My stack grew semester by semester — from C++ and Java to Flutter, databases, and now backend development with Node.js. I learn by building.</>,
+              <>My stack grew semester by semester — from C++ and Java to Flutter and databases. I am now learning full-stack web development, strengthening my HTML, CSS, JavaScript, and Node.js skills through real projects.</>,
+              <>As Vice President of AUCIS, I built our society recruitment website. I also delivered a paid recruitment website for YPDC at AU AAC, Kamra.</>,
               <>Alongside my studies, I run a WhatsApp-based beauty store back home in SKP. It taught me that software is only useful when it solves real problems.</>,
             ].map((para, i) => (
               <motion.p key={i} variants={slideLeft}>

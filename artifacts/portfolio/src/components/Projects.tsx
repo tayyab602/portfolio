@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, Smartphone, Terminal, Package, Brain, Gamepad2, X, ExternalLink, Loader2, ChevronDown } from "lucide-react";
+import { Globe, Github, Smartphone, Terminal, Package, Brain, Gamepad2, X, ExternalLink, Loader2, ChevronDown } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import {
   APPLE_EASE,
@@ -12,6 +12,42 @@ import {
 } from "@/lib/animations";
 
 const projects = [
+  {
+    title: "AUCIS Recruitment",
+    type: "Web · Society Project",
+    description:
+      "Built the recruitment website for the Air University Computing and Innovation Society at AU AAC, Kamra, where I serve as Vice President. A real-world web project supporting my society's recruitment.",
+    tech: ["Web Development", "Recruitment", "AUCIS"],
+    icon: Globe,
+    color: "from-blue-500/15 to-cyan-500/15",
+    border: "border-border hover:border-blue-400/40",
+    url: "https://aucis-recruitment.vercel.app/",
+    repo: null,
+  },
+  {
+    title: "YPDC AU AACK Recruitment",
+    type: "Web · Paid Client Project",
+    description:
+      "Designed and built a recruitment website for the YPDC society at Air University AAC, Kamra. Delivered as a paid project for a friend, bringing my web development skills into client work.",
+    tech: ["Web Development", "Recruitment", "Client Work"],
+    icon: Globe,
+    color: "from-emerald-500/15 to-teal-500/15",
+    border: "border-border hover:border-emerald-400/40",
+    url: "https://recruitment-ypdc-au-aack.vercel.app/",
+    repo: null,
+  },
+  {
+    title: "Numzoo",
+    type: "Android · Mobile Game",
+    description:
+      "An Android game I developed, adding to my growing collection of mobile projects.",
+    tech: ["Android", "Mobile Game"],
+    icon: Gamepad2,
+    color: "from-amber-500/15 to-orange-500/15",
+    border: "border-border hover:border-amber-400/40",
+    url: null,
+    repo: null,
+  },
   {
     title: "Tic Tac Toe Pro",
     type: "Flutter · Mobile Game",
@@ -146,8 +182,8 @@ function ReadmeModal({ project, onClose }: { project: Project; onClose: () => vo
                 rel="noreferrer"
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-muted border border-border hover:border-primary/50 hover:bg-primary/5 rounded-lg text-sm font-medium transition-colors"
               >
-                <Github className="w-4 h-4" />
-                <span className="hidden sm:inline">View on GitHub</span>
+                {project.repo ? <Github className="w-4 h-4" /> : <ExternalLink className="w-4 h-4" />}
+                <span className="hidden sm:inline">{project.repo ? "View on GitHub" : "Visit website"}</span>
                 <ExternalLink className="w-3 h-3 text-muted-foreground" />
               </a>
             )}
@@ -181,9 +217,11 @@ function ReadmeModal({ project, onClose }: { project: Project; onClose: () => vo
 
           {!loading && (error || !readme) && (
             <div className="space-y-4">
-              <p className="text-muted-foreground font-mono text-sm border-l-2 border-primary pl-4">
-                No README found — showing project description
-              </p>
+              {project.repo && (
+                <p className="text-muted-foreground font-mono text-sm border-l-2 border-primary pl-4">
+                  No README found — showing project description
+                </p>
+              )}
               <p className="leading-relaxed">{project.description}</p>
             </div>
           )}
@@ -207,7 +245,7 @@ function ReadmeModal({ project, onClose }: { project: Project; onClose: () => vo
         {project.url && (
           <div className="flex-shrink-0 flex items-center justify-between px-6 py-3 border-t border-border bg-card">
             <span className="text-xs font-mono text-muted-foreground">
-              {project.repo}
+              {project.repo || new URL(project.url).hostname}
             </span>
             <a
               href={project.url}
@@ -215,8 +253,8 @@ function ReadmeModal({ project, onClose }: { project: Project; onClose: () => vo
               rel="noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity"
             >
-              <Github className="w-4 h-4" />
-              Open on GitHub
+              {project.repo ? <Github className="w-4 h-4" /> : <ExternalLink className="w-4 h-4" />}
+              {project.repo ? "Open on GitHub" : "Visit website"}
             </a>
           </div>
         )}
@@ -283,7 +321,7 @@ export function Projects() {
           <motion.div variants={lineReveal} className="w-16 h-0.5 bg-primary mb-4" />
           <motion.p variants={fadeUp} className="text-muted-foreground font-mono text-sm">
             github.com/<span className="text-primary">tayyab602</span>
-            <span className="ml-3 text-muted-foreground/50">· click any card to view README</span>
+            <span className="ml-3 text-muted-foreground/50">· explore projects, live websites & source code</span>
           </motion.p>
         </motion.div>
 
@@ -328,13 +366,17 @@ export function Projects() {
                     ))}
                   </div>
                   {project.url && (
-                    <span
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex-shrink-0 p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
-                      onClick={(e) => { e.stopPropagation(); window.open(project.url!, "_blank"); }}
-                      title="Open GitHub repo"
+                      onClick={(e) => e.stopPropagation()}
+                      aria-label={`${project.repo ? "Open repository for" : "Visit"} ${project.title}`}
+                      title={project.repo ? "Open GitHub repo" : "Visit website"}
                     >
-                      <Github className="w-4 h-4" />
-                    </span>
+                      {project.repo ? <Github className="w-4 h-4" /> : <ExternalLink className="w-4 h-4" />}
+                    </a>
                   )}
                 </div>
               </motion.div>

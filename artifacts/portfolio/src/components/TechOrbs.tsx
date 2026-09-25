@@ -9,6 +9,7 @@ const TECH = [
   { name: "Assembly",       color: "#6e4c13" },
   { name: "SQL",            color: "#336791" },
   { name: "HTML",           color: "#e34f26" },
+  { name: "CSS",            color: "#1572b6" },
   { name: "Flutter",        color: "#54c5f8" },
   { name: "Android / Java", color: "#3ddc84" },
   { name: ".NET Forms",     color: "#512bd4" },

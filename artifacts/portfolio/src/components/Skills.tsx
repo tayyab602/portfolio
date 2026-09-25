@@ -13,11 +13,11 @@ import {
 const skills = [
   {
     category: "Languages",
-    items: ["C++", "C#", "Java", "Dart", "JavaScript", "Assembly (iAPX8088)", "SQL", "HTML"],
+    items: ["JavaScript", "C++", "C#", "Java", "Dart", "Assembly (iAPX8088)", "SQL"],
   },
   {
     category: "Frontend / Mobile",
-    items: ["Flutter", "Java (Android)", "Windows Forms (.NET)"],
+    items: ["HTML", "CSS", "Flutter", "Java (Android)", "Windows Forms (.NET)"],
   },
   {
     category: "Backend & Databases",
@@ -45,6 +45,17 @@ export function Skills() {
             <span className="text-primary">/</span> SKILLS
           </motion.h2>
           <motion.div variants={lineReveal} className="w-16 h-0.5 bg-primary" />
+          <motion.p variants={fadeUp} className="mt-6 max-w-2xl text-muted-foreground leading-relaxed">
+            Deepening my HTML, CSS, JavaScript, and Node.js skills through full-stack
+            web development and real projects for university societies and clients.
+          </motion.p>
+          <motion.div variants={fadeUp} className="mt-5 flex flex-wrap gap-2">
+            {["HTML", "CSS", "JavaScript", "Node.js"].map((skill) => (
+              <span key={skill} className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
+                {skill} · Current focus
+              </span>
+            ))}
+          </motion.div>
         </motion.div>
 
         {/* Skill columns */}

@@ -27,6 +27,7 @@ export function useTheme() {
       mq.addEventListener("change", handler);
       return () => mq.removeEventListener("change", handler);
     }
+    return undefined;
   }, [theme]);
 
   const setTheme = (next: Theme) => setThemeState(next);

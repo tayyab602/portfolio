@@ -3,15 +3,22 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
-import Home from "@/pages/Home";
+import Home from "@/pages/PortfolioHome";
+import ProjectPage from "@/pages/ProjectPage";
+import Play from "@/pages/FlutterPlay";
+import { useLocation } from "wouter";
 import { useEffect } from "react";
 
 const queryClient = new QueryClient();
 
 function Router() {
+  const [location] = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [location]);
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/projects/:slug" component={ProjectPage} />
+      <Route path="/play" component={Play} />
       <Route component={NotFound} />
     </Switch>
   );

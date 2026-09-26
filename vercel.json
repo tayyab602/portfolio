@@ -1,0 +1,8 @@
+{
+  "buildCommand": "pnpm --filter @workspace/portfolio build",
+  "outputDirectory": "artifacts/portfolio/dist",
+  "rewrites": [
+    { "source": "/play", "destination": "/index.html" },
+    { "source": "/projects/:slug", "destination": "/index.html" }
+  ]
+}

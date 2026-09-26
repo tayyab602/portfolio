@@ -1,0 +1,12 @@
+export type Difficulty = 'easy' | 'medium' | 'hard';
+export type Mark = 'X' | 'O' | null;
+export type Result = 'X' | 'O' | 'draw';
+export type GameState = {difficulty:Difficulty; board:Mark[]; round:number; results:Result[]; roundResult:Result|null; complete:boolean; revision:number};
+export const DIFFICULTIES: Difficulty[];
+export const ROUNDS: number;
+export const LINES: number[][];
+export function outcome(board:Mark[]):Result|null;
+export function aiMove(board:Mark[],difficulty:Difficulty,random?:()=>number):number;
+export function newChallenge(difficulty:Difficulty):GameState;
+export function advance(state:GameState,action:'move'|'next',cell?:number,random?:()=>number):GameState;
+export function points(state:GameState):number;
